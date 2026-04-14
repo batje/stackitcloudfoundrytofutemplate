@@ -3,6 +3,7 @@
 ENVIRONMENT="${1:-Test}"
 
 export TF_VAR_environment="${ENVIRONMENT}"
+export STACKIT_SERVICE_ACCOUNT_KEY_PATH="../credentials.json"
 
 # Source environment exports
 source "$(dirname "$0")/secrets.sh"

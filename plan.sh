@@ -7,6 +7,7 @@ export TF_VAR_environment="${ENVIRONMENT}"
 
 # Source environment exports
 source "$(dirname "$0")/secrets.sh"
+export STACKIT_SERVICE_ACCOUNT_KEY_PATH="../credentials.json"
 
 STACKFOLDER="$(dirname "$0")/stackit/variables/${ENVIRONMENT}.tfvars"
 CLOUDFOLDER="$(dirname "$0")/cloudfoundry/variables/${ENVIRONMENT}.tfvars"
