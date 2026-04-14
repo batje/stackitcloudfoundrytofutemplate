@@ -1,4 +1,4 @@
-# Stackit Cloudfoundry Terraform Template
+# Stackit Cloudfoundry OpenTofu/Terraform Template
 
 Template project to manage a CloudFoundry project on Stackit using OpenTofu.
 
@@ -63,3 +63,7 @@ All scripts will accept one argument for environment.
 The first result is that this will load additional variables from the XXX.tfvars file in the variables folder in both projects. 
 It will also name the space that is created like this.
 The default environment is 'Test'
+
+# Tofu or Terraform
+
+You can use this project with both OpenTofu or Terraform. Before you start, run `./use_terraform.sh` to switch to terraform. 
