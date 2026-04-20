@@ -8,10 +8,8 @@ export STACKIT_SERVICE_ACCOUNT_KEY_PATH="../credentials.json"
 # Source environment exports
 source "$(dirname "$0")/secrets.sh"
 
-STACKFOLDER="$(dirname "$0")/stackit/variables/${ENVIRONMENT}.tfvars"
-CLOUDFOLDER="$(dirname "$0")/cloudfoundry/variables/${ENVIRONMENT}.tfvars"
-
 cd stackit
+STACKFOLDER="$(dirname "$0")/variables/${ENVIRONMENT}.tfvars"
 
 if [[ ! -f "$STACKFOLDER" ]]; then
   tofu init -reconfigure
@@ -20,9 +18,9 @@ else
 fi
 
 cd ../cloudfoundry
-
+CLOUDFOLDER="$(dirname "$0")/variables/${ENVIRONMENT}.tfvars"
 if [[ ! -f "$CLOUDFOLDER" ]]; then
-  tofu init -reconfigure 
+  tofu init -reconfigure
 else
   tofu init -reconfigure -var-file="./variables/${ENVIRONMENT}.tfvars"
 fi

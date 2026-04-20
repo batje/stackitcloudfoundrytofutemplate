@@ -1,21 +1,27 @@
 #!/bin/bash
 
+
 ENVIRONMENT="${1:-Test}"
 
 export TF_VAR_environment="${ENVIRONMENT}"
-export STACKIT_SERVICE_ACCOUNT_KEY_PATH="../credentials.json"
 
 # Source environment exports
 source "$(dirname "$0")/secrets.sh"
+export STACKIT_SERVICE_ACCOUNT_KEY_PATH="../credentials.json"
+echo "Using environment: ${ENVIRONMENT}"
 
-STACKFOLDER="$(dirname "$0")/stackit/variables/${ENVIRONMENT}.tfvars"
+echo "Using cloudfoundry variables from: ${CLOUDFOLDER}"
 
 cd stackit
 STACKFOLDER="$(dirname "$0")/variables/${ENVIRONMENT}.tfvars"
 
 if [[ ! -f "$STACKFOLDER" ]]; then
+  echo "Not using additional variables, as ${STACKFOLDER} does not exist"
+  tofu refresh 
   tofu apply
-else 
+else
+  echo "Using variables from ${STACKFOLDER}"
+  tofu refresh  -var-file="./variables/${ENVIRONMENT}.tfvars"
   tofu apply -var-file="./variables/${ENVIRONMENT}.tfvars"
 fi
 
@@ -28,9 +34,9 @@ cd ../cloudfoundry
 CLOUDFOLDER="$(dirname "$0")/variables/${ENVIRONMENT}.tfvars"
 
 if [[ ! -f "$CLOUDFOLDER" ]]; then
-  tofu apply
+  tofu refresh 
 else
-  tofu apply  -var-file="./variables/${ENVIRONMENT}.tfvars"
+  tofu refresh  -var-file="./variables/${ENVIRONMENT}.tfvars"
 fi
 
 cd ../

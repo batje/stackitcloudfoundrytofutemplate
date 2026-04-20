@@ -3,7 +3,7 @@ terraform {
   required_providers {
     stackit = {
       source  = "stackitcloud/stackit"
-      version = "0.90.0"
+      version = "0.91.0"
     }
     cloudfoundry = {
       source  = "cloudfoundry/cloudfoundry"
@@ -13,7 +13,7 @@ terraform {
 
   backend "s3" {
     bucket = "terraformstates"
-    key    = "sampleprojectterraform.tfstate"
+    key    = "sampleprojectcloudfoundry.tfstate"
     endpoints = {
       s3 = "https://object.storage.eu01.onstackit.cloud"
     }
